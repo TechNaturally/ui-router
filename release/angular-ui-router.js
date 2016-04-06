@@ -1,6 +1,6 @@
 /**
  * State-based routing for AngularJS
- * @version v0.2.18
+ * @version v0.2.18-dev-2016-04-06
  * @link http://angular-ui.github.com/
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -3306,6 +3306,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
           if (exiting.self.onExit) {
             $injector.invoke(exiting.self.onExit, exiting.self, exiting.locals.globals);
           }
+          $rootScope.$broadcast('$stateExited', exiting.self, exiting.locals.globals);
           exiting.locals = null;
         }
 
@@ -3316,6 +3317,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
           if (entering.self.onEnter) {
             $injector.invoke(entering.self.onEnter, entering.self, entering.locals.globals);
           }
+          $rootScope.$broadcast('$stateEntered', entering.self, entering.locals.globals);
         }
 
         // Run it again, to catch any transitions in callbacks
